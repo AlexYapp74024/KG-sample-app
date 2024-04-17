@@ -1,0 +1,38 @@
+cd C:\Program Files\Java\jdk-21\bin
+keytool -genkey -alias 127.0.0.1 -keyalg RSA -keystore keycloak.jks -validity 10000 -storetype PKCS12
+keytool -export -alias 127.0.0.1 -keystore keycloak.jks -file keycloak.cer
+
+https://127.0.0.1:8081/
+
+./keycloak/bin/kc.bat start-dev --https-port=8081 --https-key-store-file=keycloak.jks --https-key-store-password=1234567890
+
+cd discovery-service
+./mvnw spring-boot:run
+http://127.0.0.1:8761
+
+cd config-server
+./mvnw spring-boot:run
+http://localhost:8888/auth-service/detail
+
+cd auth-service
+./mvnw spring-boot:run
+
+cd music-service
+./mvnw spring-boot:run
+
+cd gateway-server
+./mvnw spring-boot:run
+
+cd task-scheduler-service
+./mvnw spring-boot:run
+
+http://localhost:7090/auth/swagger-ui/index.html
+
+curl --insecure -X POST --data-urlencoed "client_secret=a8hzep5YMztMKDhAy0LgFwZM2ITsuvIY&cliend_id=admin-cli&grant_type_credentials" https://127.0.0.1:8081/realms/spring-boot-kc/protocol/openid-connect/token
+
+=====================
+cd user-service
+./mvnw spring-boot:run
+
+cd messaging-service
+./mvnw spring-boot:run
