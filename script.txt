@@ -30,9 +30,10 @@ http://localhost:7090/auth/swagger-ui/index.html
 
 curl --insecure -X POST --data-urlencoed "client_secret=a8hzep5YMztMKDhAy0LgFwZM2ITsuvIY&cliend_id=admin-cli&grant_type_credentials" https://127.0.0.1:8081/realms/spring-boot-kc/protocol/openid-connect/token
 
-=====================
 cd user-service
 ./mvnw spring-boot:run
+
+=====================
 
 cd messaging-service
 ./mvnw spring-boot:run
